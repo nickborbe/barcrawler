@@ -2,7 +2,7 @@ class VenuesController < ApplicationController
 
 
 def index
-		venues = Venue.all 
+		venues = Venue.all
 		render json: venues
 	end
 

@@ -9,6 +9,11 @@ $(document).ready(function(){
 		nope();
 	});
 
+	$(".js-favorites-button").on("click", function(){
+		showFavorites();
+
+	});
+
 });
 
 
@@ -62,3 +67,46 @@ $.ajax({
 	});
 	
 }
+
+
+function showFavorites(){
+
+	$.ajax({
+		type: "GET",
+		url: "/api/venues/",
+		success: function(response){
+			console.log(response)
+
+			$(".js-favorites-modal").modal("show");
+			
+		},
+		error: function(){
+			console.log(error)
+		}
+	});
+}
+
+
+
+
+
+
+
+
+
+  // albums.forEach(function (venue) {
+
+  //   var html = `
+  //     <li data-album-id="${album.id}">
+  //       <img src="${album.images[1].url}">
+  //       <h5> ${album.name} </h5>
+  //     </li>
+  //   `;
+
+  //   $(".js-favorites").html(html);
+
+  // });
+
+  
+
+// }

@@ -1,8 +1,12 @@
 <div class="container">
 	<p> BarCrawler </p>
+
+
+	<button class="js-favorites-button">Show Favorites</button>
+
 	<h1 class="js-bar-name" data-bar-id="<%=@bar.id%>"> <%=@bar.name%> </h1>
 		<div class="row">
-			<img class="the-pic" src="http://images2.miaminewtimes.com/imager/geto-boys-at-blackbird-ordinary-in-miami/u/original/6461537/getoboys_miami_blackbirdordinary_sept2013_002.jpg" width="700px">
+			<img class="the-pic" src="<%=@bar.url%>">
 		</div>
 
 		<div class="row">
@@ -20,4 +24,33 @@
 				<button class="js-maybe">Maybe</button>
 			</div>
 		</div>
+		<br><br>
 </div>
+
+<div class="modal fade js-favorites-modal col-xs-3" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-admin">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            <h4 class="modal-title">Favorites</h4>
+            <div>
+            	Click on a bar in the list to take
+            	another look
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <ul class="js-favorites">
+            	<%@favorites.each do |favorite|%>
+            	<li>
+            		<%=favorite.name%>
+            	</li>
+            	<%end%>
+            </ul>
+          </div>
+
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
