@@ -1,41 +1,64 @@
 
 $(document).ready(function(){
+	var barID = $(".js-bar-name").data("bar-id")
 	$(".js-maybe").on("click", function(){
-		console.log("you clicked the maybe button");
-		maybe();
+		maybe(barID);
 	});
 
-	$(".nope").on("click", function(){
+	$(".js-nope").on("click", function(){
 		nope();
 	});
 
 });
 
 
-function maybe(){
+function maybe(barID){
 	$.ajax({
 		type: "GET",
 		// data: {ingredient_id: ingredient},
-		url: "/api/venues/index",
+		url: "/api/venues/",
 		success: function(response){
-
-			console.log(response);
 			var theBar = Math.floor(Math.random() * ((response.length) - 2) + 1);
 			$(".js-bar-name").text(response[theBar].name);
+			$(".the-pic").prop("src", response[theBar].url);
 			
 		},
-		error: function(response){
-			console.log(response);
+		error: function(){
+			console.log(error);
+		}
+	});
+
+	$.ajax({
+		type: "PATCH",
+		url: "api/venues/"+ barID,
+		success: function(){
+			console.log("this is the bar id" + barID)
+
+		},
+		error: function(error){
+			console.log(error);
 		}
 	});
 
 	//change favorite from false to true
-	// $(".the-pic").prop("src", the_next_bar.url)
+	
 }
 
 
 function nope(){
-
-	// $(".the-pic").prop("src", the_next_bar.url)
-}// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+$.ajax({
+		type: "GET",
+		// data: {ingredient_id: ingredient},
+		url: "/api/venues/",
+		success: function(response){
+			var theBar = Math.floor(Math.random() * ((response.length) - 2) + 1);
+			$(".js-bar-name").text(response[theBar].name);
+				$(".the-pic").prop("src", response[theBar].url);
+			
+		},
+		error: function(){
+			console.log(error);
+		}
+	});
+	
+}
