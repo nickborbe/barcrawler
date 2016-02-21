@@ -2,6 +2,8 @@
 $(document).ready(function(){
 		loadFeed();
 
+
+
 	$(".js-maybe").on("click", function(){
 		maybe();
 	});
@@ -13,7 +15,25 @@ $(document).ready(function(){
 	$(".js-favorites-button").on("click", function(){
 		showFavorites();
 	});
+
 });
+
+function takeAnotherLook(id){
+	console.log(id);
+	$.ajax({
+		type:"GET",
+		url:"/api/venues/",
+		success: function(response){
+			barID = response[id-1].id;
+			$(".js-bar-name").text(response[id-1].name);
+			$(".js-live-feed").prop("src", response[id-1].url);
+		},
+		error: function(){
+			console.log(error);
+		}
+	});
+	
+}
 
 function loadFeed(){
 	$.ajax({
@@ -84,18 +104,26 @@ function showFavorites(){
 			favorites.forEach(function(favorite){
 				var list = `
 				<li>
-				${favorite.name}
+					<button class="js-take-another-look" data-bar-id="${favorite.id}"> 
+						${favorite.name} 
+					</button>
 				</li>
 				`;
 			$(".js-favorites").append(list);
 			});
 
+			$(".js-take-another-look").on("click", function(event){
+				var theID = $(event.currentTarget).data("bar-id");
+			takeAnotherLook(theID);
+		});	
 
-			$(".js-favorites-modal").modal("show");
+
 		},
 		error: function(){
 			console.log(error)
 		}
 	});
+
+	
 }
 

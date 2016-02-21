@@ -1,8 +1,13 @@
 <div class="container">
 	<p> BarCrawler </p>
 
-
-	<button class="js-favorites-button">Show Favorites</button>
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle js-favorites-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Show Upvoted Bars
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu js-favorites" aria-labelledby="dropdownMenu1"></ul>
+</div>
 
 	<h1 class="js-bar-name">This'll only take a second</h1>
 		<div class="row">
@@ -26,25 +31,3 @@
 		</div>
 		<br><br>
 </div>
-
-<div class="modal fade js-favorites-modal col-xs-3" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-admin">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-            <h4 class="modal-title">Favorites</h4>
-            <div>
-            	Click on a bar in the list to take
-            	another look
-            </div>
-          </div>
-
-          <div class="modal-body">
-            <ul class="js-favorites"></ul>
-          </div>
-
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
