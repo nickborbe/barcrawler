@@ -40,10 +40,16 @@ function loadFeed(){
 		type:"GET",
 		url:"/api/venues/",
 		success: function(response){
+			if (response.length > 0) {
 			var theBar = Math.floor(Math.random() * ((response.length) - 2) + 1);
 			barID = response[theBar].id;
 			$(".js-bar-name").text(response[theBar].name);
 			$(".js-live-feed").prop("src", response[theBar].url);
+				} else {
+					$(".js-bar-name").text("You have run out of bars");
+			$(".js-live-feed").prop("src", "https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif");
+				}
+
 		},
 		error: function(){
 			console.log(error);
@@ -58,9 +64,6 @@ function maybe(){
 		type: "PATCH",
 		url: "api/upvote/venues/"+ barID,
 		success: function(response){
-			console.log(response.name);
-			response.favorite = true;
-
 		},
 		error: function(error){
 			console.log(error);
@@ -75,14 +78,22 @@ function nope(){
 		type: "PATCH",
 		url: "api/downvote/venues/"+ barID,
 		success: function(response){
-			console.log(response.name);
-			response.favorite = false;
-
 		},
 		error: function(error){
 			console.log(error);
 		}
 	});
+	$.ajax({
+		type: "DELETE",
+		url: "api/venues/"+ barID,
+		success: function(response){
+			console.log(response.length);
+		},
+		error: function(error){
+			console.log(error);
+		}
+	});
+
 			loadFeed();	
 }
 		

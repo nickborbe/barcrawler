@@ -20,6 +20,12 @@ def index
 		render json: venue.to_json
 	end
 
+	def destroy
+		venue = Venue.find_by(id: params[:id])
+		venue.delete
+		render json: venue.to_json
+	end
+
 
 
 
