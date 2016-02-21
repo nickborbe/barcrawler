@@ -4,9 +4,9 @@
 
 	<button class="js-favorites-button">Show Favorites</button>
 
-	<h1 class="js-bar-name" data-bar-id="<%=@bar.id%>"> <%=@bar.name%> </h1>
+	<h1 class="js-bar-name">This'll only take a second</h1>
 		<div class="row">
-			<img class="the-pic" src="<%=@bar.url%>">
+			<img class="js-live-feed" src="https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif">
 		</div>
 
 		<div class="row">
@@ -42,13 +42,7 @@
           </div>
 
           <div class="modal-body">
-            <ul class="js-favorites">
-            	<%@favorites.each do |favorite|%>
-            	<li>
-            		<%=favorite.name%>
-            	</li>
-            	<%end%>
-            </ul>
+            <ul class="js-favorites"></ul>
           </div>
 
         </div><!-- /.modal-content -->
