@@ -36,7 +36,7 @@ function loadFeed(){
 function maybe(){
 	$.ajax({
 		type: "PATCH",
-		url: "api/venues/"+ barID,
+		url: "api/upvote/venues/"+ barID,
 		success: function(response){
 			console.log(response.name);
 			response.favorite = true;
@@ -53,7 +53,7 @@ function maybe(){
 function nope(){
 	$.ajax({
 		type: "PATCH",
-		url: "api/venues/"+ barID,
+		url: "api/downvote/venues/"+ barID,
 		success: function(response){
 			console.log(response.name);
 			response.favorite = false;
@@ -99,27 +99,3 @@ function showFavorites(){
 	});
 }
 
-
-
-
-
-
-
-
-
-  // albums.forEach(function (venue) {
-
-  //   var html = `
-  //     <li data-album-id="${album.id}">
-  //       <img src="${album.images[1].url}">
-  //       <h5> ${album.name} </h5>
-  //     </li>
-  //   `;
-
-  //   $(".js-favorites").html(html);
-
-  // });
-
-  
-
-// }
