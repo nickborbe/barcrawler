@@ -18,15 +18,29 @@ $(document).ready(function(){
 
 });
 
+// response.forEach(function(bar){
+// 				if (bar.favorite == true) {
+// 					favorites.push(bar);
+// 				} else {}
+// 			});
+
 function takeAnotherLook(id){
-	console.log(id);
+	console.log("id of bar" + id);
 	$.ajax({
 		type:"GET",
 		url:"/api/venues/",
 		success: function(response){
-			barID = response[id-1].id;
-			$(".js-bar-name").text(response[id-1].name);
-			$(".js-live-feed").prop("src", response[id-1].url);
+			var arrayPosition;
+			response.forEach(function(bar){
+				if( bar.id == id){
+					barID = id;
+					arrayPosition = response.indexOf(bar);
+					console.log("array position" + arrayPosition)
+			$(".js-bar-name").text(response[arrayPosition].name);
+			$(".js-live-feed").prop("src", response[arrayPosition].url);
+				};
+			});
+			// barID = response[id-1].id;
 		},
 		error: function(){
 			console.log(error);
@@ -40,11 +54,22 @@ function loadFeed(){
 		type:"GET",
 		url:"/api/venues/",
 		success: function(response){
+			 var barNumber;
+			  // = Math.floor(Math.random() * ((response.length) - 1));
 			if (response.length > 0) {
-			var theBar = Math.floor(Math.random() * ((response.length) - 2) + 1);
-			barID = response[theBar].id;
-			$(".js-bar-name").text(response[theBar].name);
-			$(".js-live-feed").prop("src", response[theBar].url);
+			response.forEach(function(bar){
+				if(bar.favorite == false){
+					barNumber = response.indexOf(bar);
+					barID = bar.id;
+				} else {
+					
+					$(".js-bar-name").text("No more bars - loading your favorites");
+			$(".js-live-feed").prop("src", "https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif");
+				}
+			});
+
+			$(".js-bar-name").text(response[barNumber].name);
+			$(".js-live-feed").prop("src", response[barNumber].url);
 				} else {
 					$(".js-bar-name").text("You have run out of bars");
 			$(".js-live-feed").prop("src", "https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif");
@@ -56,8 +81,6 @@ function loadFeed(){
 		}
 	});
 }
-
-
 
 function maybe(){
 	$.ajax({
@@ -106,6 +129,7 @@ function showFavorites(){
 		url: "/api/venues/",
 		success: function(response){
 			var favorites = [];
+
 			response.forEach(function(bar){
 				if (bar.favorite == true) {
 					favorites.push(bar);
