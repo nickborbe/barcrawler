@@ -18,11 +18,7 @@ $(document).ready(function(){
 
 });
 
-// response.forEach(function(bar){
-// 				if (bar.favorite == true) {
-// 					favorites.push(bar);
-// 				} else {}
-// 			});
+
 
 function takeAnotherLook(id){
 	console.log("id of bar" + id);
@@ -63,7 +59,7 @@ function loadFeed(){
 					barID = bar.id;
 				} else {
 					
-					$(".js-bar-name").text("No more bars - loading your favorites");
+					$(".js-bar-name").text("No more bars - check your favorites");
 			$(".js-live-feed").prop("src", "https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif");
 				}
 			});
@@ -138,7 +134,7 @@ function showFavorites(){
 			$(".js-favorites").empty();
 			favorites.forEach(function(favorite){
 				var list = `
-				<li>
+				<li role="presentation" class="active">
 					<button class="js-take-another-look" data-bar-id="${favorite.id}"> 
 						${favorite.name} 
 					</button>

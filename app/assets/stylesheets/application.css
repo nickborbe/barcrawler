@@ -1,13 +1,75 @@
-body .modal-admin {
-    
-    width: 250px;
-    
+.js-bar-name, .logo{
+	color: white;
+}
+
+.glyphicon {
+	font-size: 3em;
+}
+
+
+.logo{
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.js-bar-name {
+   text-align: center;
+   -webkit-text-stroke-width: 1.5px;
+   -webkit-text-stroke-color: black;
+}
+
+
+.buttons{
+	  position: absolute;
+    bottom: 0;
+}
+
+.big-div{
+    height: 70vh;
+}
+
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
 }
 
 .js-live-feed {
-
-	width: 700px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
+
+@media (min-aspect-ratio: 16/9) {
+  .js-live-feed {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .js-live-feed {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .fullscreen-bg {
+    background: url('../img/videoframe.jpg') center center / cover no-repeat;
+  }
+
+  .js-live-feed {
+    display: none;
+  }
+}
+
+
 
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
