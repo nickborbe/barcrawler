@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220220419) do
+ActiveRecord::Schema.define(version: 20160227084410) do
+
+  create_table "user_venues", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "venue_id"
+    t.boolean  "favorite"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_venues", ["user_id"], name: "index_user_venues_on_user_id"
+  add_index "user_venues", ["venue_id"], name: "index_user_venues_on_venue_id"
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "venues", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -19,7 +35,6 @@ ActiveRecord::Schema.define(version: 20160220220419) do
     t.string   "name"
     t.string   "address"
     t.string   "url"
-    t.boolean  "favorite"
   end
 
 end

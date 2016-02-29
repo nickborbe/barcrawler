@@ -1,14 +1,9 @@
-.js-bar-name, .logo{
-	color: white;
-}
-
-.glyphicon {
-	font-size: 3em;
-}
-
-
 .logo{
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.js-bar-name, .logo{
+	color: white;
 }
 
 .js-bar-name {
@@ -17,10 +12,51 @@
    -webkit-text-stroke-color: black;
 }
 
+.favorites-list{
+   z-index: 100;
+   opacity: 0.6;
+   color: red;
+}
+
+.glyphicon-heart{
+  color: red;
+  -webkit-text-stroke-width: 3px;
+   -webkit-text-stroke-color: white;
+
+}
+
+.js-take-another-look{
+  background-color: black;
+
+  -webkit-text-stroke-width: 0.5px;
+   -webkit-text-stroke-color: white;
+
+}
+
+.js-favorites-button{
+  background-color: transparent;
+  border: none;
+}
+
+.js-favorites {
+  position: absolute;
+    left: 0;
+    margin-left: -50px;
+}
+
+.btn-danger, .js-nope{
+  background-color: red;
+}
+
+.glyphicon {
+	font-size: 3em;
+}
+
 
 .buttons{
 	  position: absolute;
-    bottom: 0;
+    top: 450px;
+    opacity: 0.6;
 }
 
 .big-div{
@@ -61,12 +97,17 @@
 
 @media (max-width: 767px) {
   .fullscreen-bg {
-    background: url('../img/videoframe.jpg') center center / cover no-repeat;
+    background: url("") center center / cover no-repeat;
   }
 
   .js-live-feed {
     display: none;
   }
+
+
+
+
+
 }
 
 

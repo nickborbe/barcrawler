@@ -1,8 +1,7 @@
 
 $(document).ready(function(){
 		loadFeed();
-
-
+		showFavorites();
 
 	$(".js-maybe").on("click", function(){
 		maybe();
@@ -13,30 +12,103 @@ $(document).ready(function(){
 	});
 
 	$(".js-favorites-button").on("click", function(){
-		showFavorites();
+		toggleFavorites();
 	});
+
 
 });
 
 
 
+	
+
+
+function toggleFavorites(){
+
+	var list = document.getElementById("favorites-list");
+
+	if(list.style.display == 'block')
+          list.style.display = 'none';
+       else
+          list.style.display = 'block';
+}
+
+function loadFeed(){
+	$.ajax({
+		type: "GET",
+		url: "api/venues/unseen",
+		success: function(response){
+			 if(response.length > 0) {
+			 var barNumber = Math.floor(Math.random() * response.length); 
+			 	barID = response[barNumber].id;
+			 	$(".js-bar-name").text(response[barNumber].name);
+			$(".js-live-feed").prop("src", response[barNumber].url);
+				showFavorites();
+			
+			 }
+			 else{
+			 	showAlert();
+			 	loadFavorite();
+			 	showFavorites();
+
+			 }
+		},
+		error: function(){
+			console.log(error);
+		}
+	});
+}
+
+
+		var showAlert = (function() {
+    				var firstTime = true;
+    				return function () {
+        			if (firstTime) {
+            		firstTime = false;
+            		alert("Sorry, there are no more bars to browse. Loading your favorites.");
+					}
+    			};
+			})();
+
+function loadFavorite(){
+	$.ajax({
+		type: "GET",
+		url: "api/venues/upvoted",
+		success: function(response){
+			 if(response.length > 0) {
+			 var barNumber = Math.floor(Math.random() * response.length); 
+			 	barID = response[barNumber].id;
+			 	$(".js-bar-name").text(response[barNumber].name);
+			$(".js-live-feed").prop("src", response[barNumber].url);
+			 }
+			 else{
+			 	$(".js-bar-name").text("You have run out of bars - please check back later");
+			$(".js-live-feed").prop("src", "https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif");
+			 	
+			 }
+		},
+		error: function(){
+			console.log(error);
+		}
+	});
+}
+
+
+
 function takeAnotherLook(id){
-	console.log("id of bar" + id);
 	$.ajax({
 		type:"GET",
-		url:"/api/venues/",
+		url:"/api/venues/upvoted",
 		success: function(response){
 			var arrayPosition;
 			response.forEach(function(bar){
 				if( bar.id == id){
 					barID = id;
 					arrayPosition = response.indexOf(bar);
-					console.log("array position" + arrayPosition)
 			$(".js-bar-name").text(response[arrayPosition].name);
 			$(".js-live-feed").prop("src", response[arrayPosition].url);
 				};
 			});
-			// barID = response[id-1].id;
 		},
 		error: function(){
 			console.log(error);
@@ -45,50 +117,20 @@ function takeAnotherLook(id){
 	
 }
 
-function loadFeed(){
-	$.ajax({
-		type:"GET",
-		url:"/api/venues/",
-		success: function(response){
-			 var barNumber;
-			  // = Math.floor(Math.random() * ((response.length) - 1));
-			if (response.length > 0) {
-			response.forEach(function(bar){
-				if(bar.favorite == false){
-					barNumber = response.indexOf(bar);
-					barID = bar.id;
-				} else {
-					
-					$(".js-bar-name").text("No more bars - check your favorites");
-			$(".js-live-feed").prop("src", "https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif");
-				}
-			});
 
-			$(".js-bar-name").text(response[barNumber].name);
-			$(".js-live-feed").prop("src", response[barNumber].url);
-				} else {
-					$(".js-bar-name").text("You have run out of bars");
-			$(".js-live-feed").prop("src", "https://s-media-cache-ak0.pinimg.com/originals/e0/f5/a5/e0f5a5f8c2e378df4fddd75e26e9a5a3.gif");
-				}
-
-		},
-		error: function(){
-			console.log(error);
-		}
-	});
-}
 
 function maybe(){
 	$.ajax({
 		type: "PATCH",
 		url: "api/upvote/venues/"+ barID,
 		success: function(response){
+		loadFeed();	
+		// showFavorites();
 		},
 		error: function(error){
 			console.log(error);
 		}
 	});
-		loadFeed();	
 }
 
 
@@ -97,23 +139,13 @@ function nope(){
 		type: "PATCH",
 		url: "api/downvote/venues/"+ barID,
 		success: function(response){
+		loadFeed();
+		// showFavorites();
 		},
 		error: function(error){
 			console.log(error);
 		}
-	});
-	$.ajax({
-		type: "DELETE",
-		url: "api/venues/"+ barID,
-		success: function(response){
-			console.log(response.length);
-		},
-		error: function(error){
-			console.log(error);
-		}
-	});
-
-			loadFeed();	
+	});	
 }
 		
 
@@ -122,19 +154,13 @@ function showFavorites(){
 
 	$.ajax({
 		type: "GET",
-		url: "/api/venues/",
+		url: "/api/venues/upvoted",
 		success: function(response){
-			var favorites = [];
-
-			response.forEach(function(bar){
-				if (bar.favorite == true) {
-					favorites.push(bar);
-				} else {}
-			});
+			
 			$(".js-favorites").empty();
-			favorites.forEach(function(favorite){
+			response.forEach(function(favorite){
 				var list = `
-				<li role="presentation" class="active">
+				<li>
 					<button class="js-take-another-look" data-bar-id="${favorite.id}"> 
 						${favorite.name} 
 					</button>

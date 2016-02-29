@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  
+
 get "/" => "venues_views#index"
+
+get "/api/venues/upvoted" => "venues#maybes"
+
+get "/api/venues/downvoted" => "venues#nopes"
+
+get "/api/venues/unseen" => "venues#unseen"
 		
 patch "/api/upvote/venues/:id" => "venues#upvote"
 
