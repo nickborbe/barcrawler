@@ -15,6 +15,11 @@ $(document).ready(function(){
 		toggleFavorites();
 	});
 
+	$(".js-help-button").on("click", function(){
+		$(".js-help-modal").modal("show");
+	});
+
+
 
 });
 

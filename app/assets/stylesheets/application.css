@@ -48,6 +48,7 @@
   background-color: red;
 }
 
+
 .glyphicon {
 	font-size: 3em;
 }
@@ -59,8 +60,33 @@
     opacity: 0.6;
 }
 
-.big-div{
+.button-column{
     height: 70vh;
+}
+
+.help-button{
+  position: absolute;
+  right: 40px;
+  top: -18px;
+  font-size: 3em;
+  background-color: transparent;
+  border: none;
+  color: #337ab7;
+   -webkit-text-stroke-width: 2px;
+   -webkit-text-stroke-color: white;
+  font-family: "Arial Black", Gadget;
+  font-weight: 900;
+  opacity: 0.7;
+}
+
+.glyph-got-it {
+  font-size: 1em;
+  color: white;
+}
+
+.btn-got-it{
+  background-color: #337ab7;
+  color: white;
 }
 
 .fullscreen-bg {
