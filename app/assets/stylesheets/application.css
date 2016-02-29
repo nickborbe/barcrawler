@@ -8,7 +8,7 @@
 
 .js-bar-name {
    text-align: center;
-   -webkit-text-stroke-width: 1.5px;
+   -webkit-text-stroke-width: 1.75px;
    -webkit-text-stroke-color: black;
 }
 
@@ -72,7 +72,7 @@
   background-color: transparent;
   border: none;
   color: #337ab7;
-   -webkit-text-stroke-width: 2px;
+   -webkit-text-stroke-width: 2.5px;
    -webkit-text-stroke-color: white;
   font-family: "Arial Black", Gadget;
   font-weight: 900;
@@ -87,6 +87,20 @@
 .btn-got-it{
   background-color: #337ab7;
   color: white;
+}
+
+.modal-content{
+  background-color: black ;
+  color: lightgrey;
+border: solid 0.3px;
+  border-color: lightgrey;
+}
+
+
+.modal-x{
+  font-color: white;
+  color: white;
+  opacity: 0.9;
 }
 
 .fullscreen-bg {
