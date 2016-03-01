@@ -3,6 +3,7 @@ $(document).ready(function(){
 		loadFeed();
 		showFavorites();
 
+
 	$(".js-maybe").on("click", function(){
 		maybe();
 	});
@@ -19,15 +20,55 @@ $(document).ready(function(){
 		$(".js-help-modal").modal("show");
 	});
 
+	$(".js-map-button").on("click", function(){
+		ShowMap();
+	});
 
 
 });
 
 
 
+function ShowMap() {
+	$.ajax({
+		type: "GET",
+		url: "api/venues/" + barID,
+		success: function(response){
+			var the_lat = response.lat;
+			var the_lng = response.lng;
+			
+				var myCenter=new google.maps.LatLng(the_lat, the_lng);
+
+
+				  var mapProp = {
+				    center:myCenter,
+				    zoom:15,
+				    mapTypeId:google.maps.MapTypeId.ROADMAP
+				  };
+
+				  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+					  var marker=new google.maps.Marker({
+					  position:myCenter, 
+					});
+
+				  		marker.setMap(map);
+
+						google.maps.event.addDomListener(window, 'load', ShowMap);
+				},
+
+
+
+		error: function(){
+			console.log(error);
+		}
+
+	});
+}
+
+
+			
 	
-
-
 function toggleFavorites(){
 
 	var list = document.getElementById("favorites-list");
@@ -59,7 +100,7 @@ function loadFeed(){
 			 }
 		},
 		error: function(){
-			console.log(error);
+			console.log("Oh My God! Everything is Broken! Jesus! Abort! Abort!");
 		}
 	});
 }
@@ -166,7 +207,7 @@ function showFavorites(){
 			response.forEach(function(favorite){
 				var list = `
 				<li>
-					<button class="js-take-another-look" data-bar-id="${favorite.id}"> 
+					<button id="upvoted-bar-name" class="js-take-another-look" data-bar-id="${favorite.id}"> 
 						${favorite.name} 
 					</button>
 				</li>
@@ -182,7 +223,7 @@ function showFavorites(){
 
 		},
 		error: function(){
-			console.log(error)
+			console.log("Cannot show favorites")
 		}
 	});
 

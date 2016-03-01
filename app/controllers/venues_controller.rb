@@ -6,6 +6,11 @@ def index
 		render json: venues
 	end
 
+	def show
+		venue = Venue.find_by(id: params[:id])
+		render json: venue
+	end
+
 	def unseen
 		venues = current_fake_user.unseen
 		render json: venues

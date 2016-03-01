@@ -7,6 +7,8 @@ get "/api/venues/upvoted" => "venues#maybes"
 get "/api/venues/downvoted" => "venues#nopes"
 
 get "/api/venues/unseen" => "venues#unseen"
+
+get "api/venues/:id" => "venues#show"
 		
 patch "/api/upvote/venues/:id" => "venues#upvote"
 
