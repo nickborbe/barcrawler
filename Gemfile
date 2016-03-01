@@ -5,6 +5,11 @@ source 'https://rubygems.org'
 gem 'rails_12factor', group: :production
 gem 'pg', group: :production
 
+# For template strings in JS
+# `Hello ${name}`
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6', require: 'sprockets/es6'
+
 gem 'geokit-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
