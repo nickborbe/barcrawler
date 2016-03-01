@@ -22,4 +22,7 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: barcrawler_production
+  password: <%= ENV['BARCRAWLER_DATABASE_PASSWORD'] %>
