@@ -1,7 +1,9 @@
-
+var barID;
 $(document).ready(function(){
 		loadFeed();
 		showFavorites();
+
+
 
 
 	$(".js-maybe").on("click", function(){
@@ -29,55 +31,7 @@ $(document).ready(function(){
 
 
 
-function ShowMap() {
-	$.ajax({
-		type: "GET",
-		url: "api/venues/" + barID,
-		success: function(response){
-			var the_lat = response.lat;
-			var the_lng = response.lng;
-			
-				var myCenter=new google.maps.LatLng(the_lat, the_lng);
 
-
-				  var mapProp = {
-				    center:myCenter,
-				    zoom:15,
-				    mapTypeId:google.maps.MapTypeId.ROADMAP
-				  };
-
-				  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-					  var marker=new google.maps.Marker({
-					  position:myCenter, 
-					});
-
-				  		marker.setMap(map);
-
-						google.maps.event.addDomListener(window, 'load', ShowMap);
-				},
-
-
-
-		error: function(){
-			console.log(error);
-		}
-
-	});
-}
-
-
-			
-	
-function toggleFavorites(){
-
-	var list = document.getElementById("favorites-list");
-
-	if(list.style.display == 'block')
-          list.style.display = 'none';
-       else
-          list.style.display = 'block';
-}
 
 function loadFeed(){
 	$.ajax({
@@ -86,7 +40,7 @@ function loadFeed(){
 		success: function(response){
 			 if(response.length > 0) {
 			 var barNumber = Math.floor(Math.random() * response.length); 
-			 	barID = response[barNumber].id;
+			 	 barID = response[barNumber].id;
 			 	$(".js-bar-name").text(response[barNumber].name);
 			$(".js-live-feed").prop("src", response[barNumber].url);
 				showFavorites();
@@ -100,7 +54,7 @@ function loadFeed(){
 			 }
 		},
 		error: function(){
-			console.log("Oh My God! Everything is Broken! Jesus! Abort! Abort!");
+			console.log("Oh My God! Everything is Broken! Jesus! Ctrl Z! Ctrl Z!");
 		}
 	});
 }
@@ -138,6 +92,66 @@ function loadFavorite(){
 		}
 	});
 }
+
+
+function ShowMap() {
+	$.ajax({
+		type: "GET",
+		url: "api/venues/" + barID,
+		success: function(response){
+			var the_lat = response.lat;
+			var the_lng = response.lng;
+			
+				var myCenter=new google.maps.LatLng(the_lat, the_lng);
+
+
+				  var mapProp = {
+				    center:myCenter,
+				    zoom:15,
+				    mapTypeId:google.maps.MapTypeId.ROADMAP
+				  };
+
+				  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+					  var marker=new google.maps.Marker({
+					  position:myCenter, 
+					});
+
+				  		marker.setMap(map);
+
+						google.maps.event.addDomListener(window, 'load', ShowMap);
+
+
+						$("body").on("click", function(){
+							mapProp.close();
+						});
+
+						
+				},
+
+
+
+		error: function(){
+			console.log(error);
+		}
+
+	});
+}
+
+
+			
+	
+function toggleFavorites(){
+
+	var list = document.getElementById("favorites-list");
+
+	if(list.style.display == 'block')
+          list.style.display = 'none';
+       else
+          list.style.display = 'block';
+}
+
+
 
 
 
