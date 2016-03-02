@@ -124,7 +124,12 @@ function ShowMap() {
 			    });
 
 			    var infowindow = new google.maps.InfoWindow({
-			      content: (response.name+ "<br>" +response.address)
+			      content: ` 
+			      	${response.name} <br>
+			      	${response.address}  
+			      	<br>
+			      	<a target="_blank" href="http://maps.google.com/maps?saddr=?&daddr=${response.address}" >Click Here for Directions</a> 
+			      		`
 			    });
 
 			    infowindow.open(map, marker);
