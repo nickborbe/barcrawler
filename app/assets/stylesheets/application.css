@@ -1,4 +1,23 @@
+.the-entire-page{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 15px;
+  z-index: 60;
+  display: none;
 
+}
+
+/*#googleMap{
+  position: relative;
+  z-index: 75;
+}*/
+
+#map{
+  position: relative;
+  z-index: 75;
+}
 
 
 .logo{

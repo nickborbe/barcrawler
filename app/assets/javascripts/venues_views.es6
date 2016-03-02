@@ -27,6 +27,14 @@ $(document).ready(function(){
 	});
 
 
+
+	// if ($("#googleMap").({ })) {
+	// $(".the-entire-page").on("click", function(){
+	// 						$("#googleMap").hide();
+	// 	});
+	// }
+
+
 });
 
 
@@ -94,6 +102,7 @@ function loadFavorite(){
 }
 
 
+
 function ShowMap() {
 	$.ajax({
 		type: "GET",
@@ -101,35 +110,42 @@ function ShowMap() {
 		success: function(response){
 			var the_lat = response.lat;
 			var the_lng = response.lng;
+			var myCenter = new google.maps.LatLng(the_lat, the_lng)
 			
-				var myCenter=new google.maps.LatLng(the_lat, the_lng);
+			var map = new google.maps.Map(document.getElementById('map'), {
+			      zoom: 15,
+			      center: myCenter,
+			      mapTypeId: google.maps.MapTypeId.ROADMAP
+			    });
+
+			    var marker = new google.maps.Marker({
+			      position: map.getCenter(),
+			      map: map
+			    });
+
+			    var infowindow = new google.maps.InfoWindow({
+			      content: (response.name+ "<br>" +response.address)
+			    });
+
+			    infowindow.open(map, marker);
 
 
-				  var mapProp = {
-				    center:myCenter,
-				    zoom:15,
-				    mapTypeId:google.maps.MapTypeId.ROADMAP
-				  };
-
-				  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-					  var marker=new google.maps.Marker({
-					  position:myCenter, 
-					});
-
-				  		marker.setMap(map);
-
-						google.maps.event.addDomListener(window, 'load', ShowMap);
+						$(".the-entire-page").show();
 
 
-						$("body").on("click", function(){
-							mapProp.close();
+						$("#map").show(function(){
+							google.maps.event.trigger(map, 'resize');
+							map.setCenter(myCenter);
+							infowindow.open(map, marker);
 						});
 
-						
+						$(".the-entire-page").on("click", function(){
+							$("#map").hide();
+							$(".the-entire-page").hide();
+						});
+
+	
 				},
-
-
 
 		error: function(){
 			console.log(error);
@@ -243,4 +259,58 @@ function showFavorites(){
 
 	
 }
+
+
+
+
+// function ShowMap() {
+// 	$.ajax({
+// 		type: "GET",
+// 		url: "api/venues/" + barID,
+// 		success: function(response){
+// 			var the_lat = response.lat;
+// 			var the_lng = response.lng;
+			
+// 				var myCenter=new google.maps.LatLng(the_lat, the_lng);
+
+
+// 				  var mapProp = {
+// 				    center:myCenter,
+// 				    zoom:15,
+// 				    mapTypeId:google.maps.MapTypeId.ROADMAP
+// 				  };
+
+// 				  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+// 					  var marker=new google.maps.Marker({
+// 					  position:myCenter, 
+// 					});
+
+// 				  		marker.setMap(map);
+
+
+// 						google.maps.event.addDomListener(window, 'load', ShowMap);
+
+// 						$(".the-entire-page").show();
+
+
+// 						$("#googleMap").show(function(){
+// 							google.maps.event.trigger(map, 'resize');
+// 							map.setCenter(myCenter);
+// 						});
+
+// 						$(".the-entire-page").on("click", function(){
+// 							$("#googleMap").hide();
+// 							$(".the-entire-page").hide();
+// 						});
+
+	
+// 				},
+
+// 		error: function(){
+// 			console.log(error);
+// 		}
+
+// 	});
+// }
 
