@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-get "/" => "venues_views#index"
+get "/venues" => "venues_views#index"
+
+get "/venues/:id" => "venues_views#single_venue"
+
+
+
+get "/" => "venues_views#main"
 
 get "/api/venues/upvoted" => "venues#maybes"
 
