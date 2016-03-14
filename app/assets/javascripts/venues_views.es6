@@ -2,6 +2,7 @@ var barID;
 $(document).ready(function(){
 		loadFeed();
 		showFavorites();
+		// pullTweets();
 
 
 
@@ -27,15 +28,20 @@ $(document).ready(function(){
 	});
 
 
-
-	// if ($("#googleMap").({ })) {
-	// $(".the-entire-page").on("click", function(){
-	// 						$("#googleMap").hide();
-	// 	});
-	// }
-
-
 });
+
+// function pullTweets(){
+// 	$.ajax({
+// 		type"GET"
+// 		url: ""
+// 		success: function(respomse){
+
+// 		},
+// 		error: function(){
+// 			console.log(error);
+// 		}
+// 	})
+// }
 
 
 
